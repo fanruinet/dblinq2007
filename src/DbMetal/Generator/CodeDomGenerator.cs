@@ -641,6 +641,7 @@ namespace DbMetal.Generator
                 CustomAttributes = {
                     new CodeAttributeDeclaration("Table", 
                         new CodeAttributeArgument("Name", new CodePrimitiveExpression(table.Name))),
+                    new CodeAttributeDeclaration("Serializable")
                 },
             };
 
