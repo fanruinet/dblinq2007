@@ -74,7 +74,7 @@ namespace DbLinq.MySql
 SELECT constraint_name,table_schema,table_name
     ,GROUP_CONCAT(column_name SEPARATOR ',') AS column_name,referenced_table_schema,referenced_table_name,GROUP_CONCAT(referenced_column_name SEPARATOR ',') AS referenced_column_name
 FROM information_schema.`KEY_COLUMN_USAGE`
-WHERE table_schema=?db GROUP BY constraint_name,table_schema,table_name,referenced_table_name";
+WHERE table_schema=?db GROUP BY constraint_name,table_schema,table_name,referenced_table_schema,referenced_table_name";
 
             return DataCommand.Find<DataConstraint>(conn, sql, "?db", db, ReadConstraint);
         }
