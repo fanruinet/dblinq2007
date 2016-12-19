@@ -198,7 +198,7 @@ namespace DbMetal
         /// <summary>
         /// DB-context class naming mode
         /// </summary>
-        public string ContextNameMode { get; set; }
+        public string ContextName { get; set; }
 
         TextWriter log;
         public TextWriter Log
@@ -218,7 +218,7 @@ namespace DbMetal
             MemberAttributes = new List<string>();
             GenerateTimestamps = true;
             EntityInterfaces = new []{ "INotifyPropertyChanging", "INotifyPropertyChanged" };
-            ContextNameMode = "wordextract";
+            ContextName = null;
         }
 
         public void Parse(IList<string> args)
@@ -327,9 +327,8 @@ namespace DbMetal
                   "Show this help",
                   v => Help = v != null },
                 { "context-name=",
-                  "DB-context class naming mode " + 
-                  "(default: wordextract; may be: wordextract+context, wordcase, wordcase+context)",
-                  v => ContextNameMode = v ?? "wordextract" },
+                  "Override the DB-context class name with this specified value.",
+                  v => ContextName = v },
             };
 
             Extra = Options.Parse(args);

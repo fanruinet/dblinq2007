@@ -59,12 +59,11 @@ namespace DbLinq.Vendor
         /// <param name="loadStoredProcedures"></param>
         /// <param name="contextNamespace"></param>
         /// <param name="entityNamespace"></param>
+        /// <param name="contextName"></param>
         /// <returns></returns>
         Database Load(string databaseName, INameAliases nameAliases, NameFormat nameFormat,
             bool loadStoredProcedures, string contextNamespace, string entityNamespace
-#if !MONO_STRICT
-            , string contextNameMode
-#endif
+            , string contextName
             );
     }
 }

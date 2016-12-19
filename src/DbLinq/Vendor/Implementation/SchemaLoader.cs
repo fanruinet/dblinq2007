@@ -93,11 +93,8 @@ namespace DbLinq.Vendor.Implementation
         /// <param name="entityNamespace"></param>
         /// <returns></returns>
         public virtual Database Load(string databaseName, INameAliases nameAliases, NameFormat nameFormat,
-            bool loadStoredProcedures, string contextNamespace, string entityNamespace
-#if !MONO_STRICT
-            , string contextNameMode
-#endif
-            )
+            bool loadStoredProcedures, string contextNamespace, string entityNamespace,
+            string contextName)
         {
             // check if connection is open. Note: we may use something more flexible
             if (Connection.State != ConnectionState.Open)
@@ -112,13 +109,11 @@ namespace DbLinq.Vendor.Implementation
 
             databaseName = GetDatabaseNameAliased(databaseName, nameAliases);
 
-#if MONO_STRICT
             var schemaName = NameFormatter.GetSchemaName(databaseName, GetExtraction(databaseName), nameFormat);
-#else
-            var extraction = contextNameMode.StartsWith("wordcase") ? WordsExtraction.FromCase : GetExtraction(databaseName);
-            useContextClassNamePostfix = contextNameMode.Contains("context");
-            var schemaName = NameFormatter.GetSchemaName(databaseName, extraction, nameFormat, ContextClassNamePostfix);
-#endif
+            if (!string.IsNullOrEmpty(contextName))
+            {
+                schemaName.ClassName = contextName;
+            }
 
             var names = new Names();
             var schema = new Database
@@ -171,7 +166,7 @@ namespace DbLinq.Vendor.Implementation
         /// <summary>
         /// Gets a usable name for the database class.
         /// </summary>
-        /// <param name="databaseName">Name of the clas.</param>
+        /// <param name="className">Name of the class.</param>
         /// <returns></returns>
         protected virtual string GetRuntimeClassName(string className, INameAliases nameAliases)
         {
@@ -345,11 +340,8 @@ namespace DbLinq.Vendor.Implementation
                 if (string.IsNullOrEmpty(databaseName))
                     throw new ArgumentException("Could not deduce database name from connection string. Please specify /database=<databaseName>");
             }
-#if MONO_STRICT
+
             return NameFormatter.GetSchemaName(databaseName, GetExtraction(databaseName), nameFormat);
-#else
-            return NameFormatter.GetSchemaName(databaseName, GetExtraction(databaseName), nameFormat, ContextClassNamePostfix);
-#endif
         }
 
         protected virtual ParameterName CreateParameterName(string dbParameterName, NameFormat nameFormat)
