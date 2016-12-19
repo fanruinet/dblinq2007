@@ -115,7 +115,7 @@ namespace DbLinq.Language.Implementation
             var type = GetType();
             using (var resourceStream = type.Assembly.GetManifestResourceStream(type, resourceName))
             {
-                using (var resourceReader = new StreamReader(resourceStream))
+                using (var resourceReader = new StreamReader(resourceStream, true))
                 {
                     var singularPluralSeparator = new[] { "=>" };
                     while (!resourceReader.EndOfStream)
