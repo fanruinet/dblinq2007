@@ -212,7 +212,7 @@ namespace DbMetal
 
         public Parameters()
         {
-            Schema = true;
+            Schema = false;
             Culture = "en";
             GenerateTypes = new List<string>();
             MemberAttributes = new List<string>();
@@ -274,7 +274,7 @@ namespace DbMetal
                   "Use mapping {FILE}.",
                   file => Aliases = file },
                 { "schema",
-                  "Generate schema in code files (default: enabled).",
+                  "Generate schema in code files (default: disabled).",
                   v => Schema = v != null },
                  // SQLMetal compatible
                 { "namespace=",
