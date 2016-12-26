@@ -83,12 +83,19 @@ namespace DbMetal.Generator
         public void Write(TextWriter textWriter, Database dbSchema, GenerationContext context)
         {
             Context = context;
+            CodeGeneratorOptions options = new CodeGeneratorOptions()
+            {
+                BracingStyle = "C",
+                IndentString = "\t",
+            };
+            Provider.GenerateCodeFromCompileUnit(
+                new CodeSnippetCompileUnit("#pragma warning disable 1591"),
+                textWriter,
+                options);
             Provider.CreateGenerator(textWriter).GenerateCodeFromNamespace(
-                GenerateCodeDomModel(dbSchema), textWriter, 
-                new CodeGeneratorOptions() {
-                    BracingStyle = "C",
-                    IndentString = "\t",
-                });
+                GenerateCodeDomModel(dbSchema),
+                textWriter,
+                options);
         }
 
         static void Warning(string format, params object[] args)
