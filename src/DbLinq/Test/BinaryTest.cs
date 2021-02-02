@@ -69,7 +69,6 @@ namespace DbLinqTest
             Binary a2   = new Binary(Encoding.UTF8.GetBytes("a"));
             Binary b    = new Binary(Encoding.UTF8.GetBytes("b"));
 
-            Assert.IsTrue(a == a);
             Assert.IsTrue(a == a2);
             Assert.IsFalse(a == null);
             Assert.IsFalse(null == a);
@@ -88,7 +87,6 @@ namespace DbLinqTest
             Binary a2   = new Binary(Encoding.UTF8.GetBytes("a"));
             Binary b    = new Binary(Encoding.UTF8.GetBytes("b"));
 
-            Assert.IsFalse(a != a);
             Assert.IsFalse(a != a2);
             Assert.IsTrue(a != null);
             Assert.IsTrue(null != a);
@@ -101,7 +99,7 @@ namespace DbLinqTest
         }
 
         [Test]
-        public void GetHashCode()
+        public void GetHashCodeTest()
         {
             Binary a = new Binary(Encoding.UTF8.GetBytes("a"));
             Binary b = new Binary(Encoding.UTF8.GetBytes("a"));

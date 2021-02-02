@@ -367,7 +367,7 @@ namespace DbMetal
         {
             var version = ApplicationVersion;
             Write("DbLinq Database mapping generator 2008 version {0}.{1}", version.Major, version.Minor);
-            Write("for Microsoft (R) .NET Framework version 3.5");
+            Write("for Microsoft (R) .NET Framework version 4.7.2");
             Write("Distributed under the MIT licence (http://linq.to/db/license)");
         }
 
